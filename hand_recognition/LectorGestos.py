@@ -46,7 +46,7 @@ while True:
         cv2.rectangle(frame, (cuadro, cuadro), (anchocam - cuadro, altocam - cuadro), (0, 0, 0), 2)  # Generamos cuadro
         #-----------------Modo movimiento: solo dedo indice-------------------------------------
         if dedos[1]== 1 and dedos[2] == 0 and dedos[3] == 0:  #Si el indice esta arriba pero el corazon esta abajo
-            print("play/pause")
+            #print("play/pause")
             if accion != "play" and accion != "pausa":
                 if estado == "pausado":
                     accion = "play"
@@ -63,7 +63,7 @@ while True:
 
         #----------------------------- Comprobar si esta en modo click -------------------------
         elif dedos[1] == 1 and dedos[2] == 1 and dedos[3] == 0:  # Si el indice esta arriba y el corazon tambien
-            print("siguiente")
+            #print("siguiente")
             if accion != "siguiente":
                 accion = "siguiente"
                 try:
@@ -74,7 +74,7 @@ while True:
                     print(f"Error al enviar la acción: {e}") 
 
         elif dedos[1] == 1 and dedos[2] == 1 and dedos[3] == 1:  # Si el indice esta arriba y el corazon tambien
-            print("anterior")
+            #print("anterior")
             if accion != "anterior":
                 accion = "anterior"
                 try:
