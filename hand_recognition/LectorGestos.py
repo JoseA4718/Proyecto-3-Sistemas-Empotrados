@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 import SeguimientoManos as sm  #Programa que contiene la deteccion y seguimiento de manos
-import json
+
 
 #-------------------------------SERVER-----------------------------------------------------------
 import requests
@@ -57,7 +57,6 @@ while True:
                     estado = "stop"
                 try: 
                     payload = {"command":accion}
-                    print(json.dumps(payload, indent=4))
                     response = requests.post(url, json=payload)
                     print(f"se envio la vara de prueba con el estado: {accion}")
                     print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
@@ -71,7 +70,6 @@ while True:
                 accion = "next"
                 try:
                     payload = {"command":accion}
-                    print(json.dumps(payload, indent=4))
                     print(f"se envio la vara de prueba con el estado: {accion}")
                     response = requests.post(url, json=payload)
                     print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
@@ -84,7 +82,6 @@ while True:
                 accion = "prev"
                 try:
                     payload = {"command":accion}
-                    print(json.dumps(payload, indent=4))
                     print(f"se envio la vara de prueba con el estado: {accion}")
                     response = requests.post(url, json=payload)
                     print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
