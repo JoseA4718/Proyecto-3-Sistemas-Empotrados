@@ -87,7 +87,7 @@ while True:
         elif dedos[1]== 0 and dedos[2] == 0 and dedos[3] == 0:
             accion = None 
 
-    cv2.imshow("Mouse", frame)
+    #cv2.imshow("Mouse", frame)
     k = cv2.waitKey(1)
     if k == 27:
         break
