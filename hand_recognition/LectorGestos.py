@@ -2,14 +2,15 @@
 import cv2
 import numpy as np
 import SeguimientoManos as sm  #Programa que contiene la deteccion y seguimiento de manos
+import json
 
 #-------------------------------SERVER-----------------------------------------------------------
 import requests
 
-url = "https://ejemplo.com/api"
+url = "http://192.168.68.105:8080/send_command"
 accion = ""
-payload = {"accion":accion}
-estado = "pausado"
+payload = {"command": accion}
+estado = "stop"
 0
 
 #---------------------------------Declaracion de variables---------------------------------------
@@ -47,47 +48,53 @@ while True:
         #-----------------Modo movimiento: solo dedo indice-------------------------------------
         if dedos[1]== 1 and dedos[2] == 0 and dedos[3] == 0:  #Si el indice esta arriba pero el corazon esta abajo
             #print("play/pause")
-            if accion != "play" and accion != "pausa":
-                if estado == "pausado":
+            if accion != "play" and accion != "stop":
+                if estado == "stop":
                     accion = "play"
                     estado = "play"
                 else:
-                    accion = "pausa"
-                    estado = "pausado"
-                try:
-                    #response = requests.post(url, json=payload)
+                    accion = "stop"
+                    estado = "stop"
+                try: 
+                    payload = {"command":accion}
+                    print(json.dumps(payload, indent=4))
+                    response = requests.post(url, json=payload)
                     print(f"se envio la vara de prueba con el estado: {accion}")
-                    #print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
+                    print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
                 except requests.exceptions.RequestException as e:
                     print(f"Error al enviar la acción: {e}")
 
         #----------------------------- Comprobar si esta en modo click -------------------------
         elif dedos[1] == 1 and dedos[2] == 1 and dedos[3] == 0:  # Si el indice esta arriba y el corazon tambien
             #print("siguiente")
-            if accion != "siguiente":
-                accion = "siguiente"
+            if accion != "next":
+                accion = "next"
                 try:
+                    payload = {"command":accion}
+                    print(json.dumps(payload, indent=4))
                     print(f"se envio la vara de prueba con el estado: {accion}")
-                    #response = requests.post(url, json=payload)
-                    #print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
+                    response = requests.post(url, json=payload)
+                    print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
                 except requests.exceptions.RequestException as e:
                     print(f"Error al enviar la acción: {e}") 
 
         elif dedos[1] == 1 and dedos[2] == 1 and dedos[3] == 1:  # Si el indice esta arriba y el corazon tambien
             #print("anterior")
-            if accion != "anterior":
-                accion = "anterior"
+            if accion != "prev":
+                accion = "prev"
                 try:
+                    payload = {"command":accion}
+                    print(json.dumps(payload, indent=4))
                     print(f"se envio la vara de prueba con el estado: {accion}")
-                    #response = requests.post(url, json=payload)
-                    #print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
+                    response = requests.post(url, json=payload)
+                    print(f"Acción enviada: {accion}, Código de estado: {response.status_code}")
                 except requests.exceptions.RequestException as e:
                     print(f"Error al enviar la acción: {e}") 
 
         elif dedos[1]== 0 and dedos[2] == 0 and dedos[3] == 0:
             accion = None 
 
-    #cv2.imshow("Mouse", frame)
+    cv2.imshow("Mouse", frame)
     k = cv2.waitKey(1)
     if k == 27:
         break
